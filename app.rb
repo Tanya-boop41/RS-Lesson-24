@@ -26,9 +26,15 @@ post '/visit' do
 	@barber = params[:barber]
 	@color = params[:color]
 
-	if @username == ''
-		@error = 'Введите имя'
-		return erb :visit
+	hh = { :username => 'Введите имя',
+			:phone => 'Введите телефон',
+			:date_time => 'Введите дату и время'}
+
+	hh.each do |key, value|
+		if params[key] == ''
+			@error = hh[key]
+			return erb :visit
+		end
 	end
 	
 	f = File.open './public/users.txt', 'a'
